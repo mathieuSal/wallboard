@@ -7,13 +7,18 @@
     </div>
     <div id="todoWidget">
       <p>{{ title }}</p>
+      <div class="todoList addButton">
+        <button v-on:click="addList">Add list</button>
+      </div>
       <div class="todoListContainer">
-        <ul v-for="todo in todoLists" :key="todo.id" class="todoList list">
-          <li class="todoList-name">{{todo.name}}</li>
-          <ul class="todoList-action list">
-            <li v-for="action in todo.list" :key="action.id"> {{ action.name }}</li>
+        <div class="todoListContent">
+          <ul v-for="todo in todoLists" :key="todo.id" class="todoList list">
+            <li class="todoList-name">{{todo.name}}</li>
+            <ul class="todoList-action list">
+              <li v-for="action in todo.list" :key="action.id"> {{ action.name }}</li>
+            </ul>
           </ul>
-        </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -24,46 +29,8 @@ export default {
   name: 'ToDo',
   data () {
     return {
-      loading: false,
       title: 'here we will have our todo list component',
-      todoLists: [ // used as an example of what we will find on our localstorage
-        {
-          id: 1,
-          name: 'list 1',
-          list: [
-            {
-              id: 1,
-              name: 'action 1'
-            },
-            {
-              id: 2,
-              name: 'action 2'
-            },
-            {
-              id: 3,
-              name: 'action 3'
-            }
-          ]
-        },
-        {
-          id: 2,
-          name: 'list 2',
-          list: [
-            {
-              id: 4,
-              name: 'action 1'
-            },
-            {
-              id: 5,
-              name: 'action 2'
-            },
-            {
-              id: 6,
-              name: 'action 3'
-            }
-          ]
-        }
-      ]
+      todoLists: []
     }
   },
   created () {
@@ -71,8 +38,19 @@ export default {
   },
   methods: {
     fetchData () {
-      this.loading = true
-      this.todoLists = localStorage.getItem('ms-wallboard-todolist')
+      const historic = localStorage.getItem('ms-wallboard-todoList')
+      this.todoLists = historic !== null ? JSON.parse(historic) : []
+    },
+    addList () {
+      this.todoLists = [
+        ...this.todoLists,
+        {
+          id: this.todoLists.length,
+          name: `list ${this.todoLists.length}`,
+          list: []
+        }
+      ]
+      localStorage.setItem('ms-wallboard-todoList', JSON.stringify(this.todoLists))
     }
   }
 }
@@ -92,11 +70,30 @@ export default {
 .todoListContainer {
   display: flex;
   justify-content: center;
+  width: 100%;
+}
+
+.todoListContent {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
   width: 80%;
 }
 
 .todoList {
   width: 25%;
+}
+
+.addButton {
+  display: flex;
+  padding-left: 40px;
+  margin-left: 1rem;
+  align-items: center;
+}
+
+.addButton button {
+  width: 80px;
+  height: 20px;
 }
 
 .todoList-name {
