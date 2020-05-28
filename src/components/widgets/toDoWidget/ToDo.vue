@@ -25,6 +25,7 @@
 </template>
 
 <script>
+const storage = 'ms-wallboard-todoList'
 export default {
   name: 'ToDo',
   data () {
@@ -38,7 +39,7 @@ export default {
   },
   methods: {
     fetchData () {
-      const historic = localStorage.getItem('ms-wallboard-todoList')
+      const historic = localStorage.getItem(storage)
       this.todoLists = historic !== null ? JSON.parse(historic) : []
     },
     addList () {
@@ -50,7 +51,7 @@ export default {
           list: []
         }
       ]
-      localStorage.setItem('ms-wallboard-todoList', JSON.stringify(this.todoLists))
+      localStorage.setItem(storage, JSON.stringify(this.todoLists))
     }
   }
 }
