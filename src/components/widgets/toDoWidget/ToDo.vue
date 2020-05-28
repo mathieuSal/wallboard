@@ -13,8 +13,17 @@
       <div class="todoListContainer">
         <div class="todoListContent">
           <ul v-for="todo in todoLists" :key="todo.id" class="todoList list">
-            <li class="todoList-name">{{todo.name}}</li>
-            <ul class="todoList-action list">
+            <li class="todoListHeaderContainer">
+              <div class="todoListHeaderContent">
+                <span>
+                  {{todo.name}}
+                </span>
+                <button v-on:click="addAction(todo.id)">
+                  Add action
+                </button>
+              </div>
+            </li>
+            <ul class="todoListAction list">
               <li v-for="action in todo.list" :key="action.id"> {{ action.name }}</li>
             </ul>
           </ul>
@@ -51,6 +60,27 @@ export default {
           list: []
         }
       ]
+      this.persist()
+    },
+    addAction (id) {
+      this.todoLists = this.todoLists.map(todoList => {
+        if (todoList.id === id) {
+          return {
+            ...todoList,
+            list: [
+              ...todoList.list,
+              {
+                id: this.todoLists.reduce((prev, curr) => [...prev, ...curr.list], []).length,
+                name: `action ${todoList.list.length}`
+              }
+            ]
+          }
+        }
+        return todoList
+      })
+      this.persist()
+    },
+    persist () {
       localStorage.setItem(storage, JSON.stringify(this.todoLists))
     }
   }
@@ -85,11 +115,18 @@ export default {
   width: 25%;
 }
 
+.todoListContent .todoList {
+  border: 1px solid #cecece;
+  border-radius: 20px;
+  margin: 1rem;
+  padding: 1rem;
+}
+
 .addButton {
-  display: flex;
-  padding-left: 40px;
-  margin-left: 1rem;
   align-items: center;
+  display: flex;
+  margin-left: 1rem;
+  padding-left: 40px;
 }
 
 .addButton button {
@@ -97,12 +134,22 @@ export default {
   height: 20px;
 }
 
-.todoList-name {
+.todoListHeaderContainer {
   margin: 0 1rem;
   text-align: left;
 }
 
-.todoList-action li {
+.todoListHeaderContent {
+  display: flex;
+  justify-content: space-between;
+}
+
+.todoListHeaderContent button {
+  height: 20px;
+  width: 75px;
+}
+
+.todoListAction li {
   background-color: blue;
   color: white;
   font-weight: 600;
