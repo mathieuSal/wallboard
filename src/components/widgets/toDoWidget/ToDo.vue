@@ -1,10 +1,6 @@
 <template>
   <div>
-    <div class="backHome">
-      <router-link to="/">
-        <p>home</p>
-      </router-link>
-    </div>
+    <HomeComponent/>
     <div id="todoWidget">
       <p>{{ title }}</p>
       <div class="todoList addButton">
@@ -12,21 +8,7 @@
       </div>
       <div class="todoListContainer">
         <div class="todoListContent">
-          <ul v-for="todo in todoLists" :key="todo.id" class="todoList list">
-            <li class="todoListHeaderContainer">
-              <div class="todoListHeaderContent">
-                <span>
-                  {{todo.name}}
-                </span>
-                <button v-on:click="addAction(todo.id)">
-                  Add action
-                </button>
-              </div>
-            </li>
-            <ul class="todoListAction list">
-              <li v-for="action in todo.list" :key="action.id"> {{ action.name }}</li>
-            </ul>
-          </ul>
+          <TodoList v-for="todoList in todoLists" :todoList="todoList" :key="todoList.id"></TodoList>
         </div>
       </div>
     </div>
@@ -34,16 +16,24 @@
 </template>
 
 <script>
+import HomeComponent from '../../generic/homeComponent/HomeComponent'
+import TodoList from './ToDoList'
+
 const storage = 'ms-wallboard-todoList'
+
 export default {
   name: 'ToDo',
-  data () {
+  components: {
+    HomeComponent,
+    TodoList
+  },
+  data: function () {
     return {
       title: 'here we will have our todo list component',
       todoLists: []
     }
   },
-  created () {
+  mounted () {
     this.fetchData()
   },
   methods: {
@@ -91,6 +81,7 @@ export default {
 .backHome {
   left: 1rem;
   position: absolute;
+  ;
   top: 1rem;
 }
 
