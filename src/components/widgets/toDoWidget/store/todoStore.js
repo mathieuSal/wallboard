@@ -1,7 +1,9 @@
+import {hashCode} from '../../../../utils/wallboardUtils'
 const storage = 'ms-wallboard-todoList'
 
 const state = {
   newTodo: '',
+  editing: null,
   todos: [{
     id: 1,
     name: 'tache de test',
@@ -11,7 +13,12 @@ const state = {
 
 const getters = {
   newTodo: state => state.newTodo,
-  todos: state => state.todos
+  editing: state => state.editing,
+  todos: state => state.todos,
+  remainingTodos: state => state.todos.filter(todo => !todo.completed),
+  completedTodos: state => state.todos.filter(todo => todo.completed),
+  remainingTodosCount: state => getters.remainingTodos(state).length,
+  completedTodosCount: state => getters.completedTodos(state).length
 }
 
 const mutations = {
@@ -22,7 +29,19 @@ const mutations = {
     state.newTodo = value
   },
   TODO_ADD_TODO (state, name) {
-    state.todos = [...state.todos, {name, completed: false, id: ++state.todos.length}]
+    const date = new Date()
+    state.todos = [...state.todos, {name, completed: false, id: hashCode(date.toString())}]
+  },
+  UPDATE_EDITING_TODO (state, todo) {
+    state.editing = todo
+  },
+  TODO_EDIT_TODO (state, todoEdited) {
+    state.todos = state.todos.map(todo => {
+      if (todo.id === todoEdited.id) {
+        return todoEdited
+      }
+      return todo
+    })
   },
   TODO_CHECK_TODO (state, id) {
     state.todos = state.todos.map(todo => {
@@ -35,6 +54,12 @@ const mutations = {
 
       return todo
     })
+  },
+  TODO_DELETE_TODO (state, id) {
+    state.todos = state.todos.filter(todo => todo.id !== id)
+  },
+  TODO_DELETE_ALL_COMPLETED (state) {
+    state.todos = state.todos.filter(todo => !todo.completed)
   }
 }
 
@@ -54,8 +79,27 @@ const actions = {
     store.commit('UPDATE_NEW_TODO', '')
     actions.persist()
   },
+  editingTodo (store, todo) {
+    store.commit('UPDATE_EDITING_TODO', todo)
+  },
+  updateEditingTodo (store, e) {
+    store.commit('UPDATE_EDITING_TODO', {...state.editing, name: e.target.value})
+  },
+  editTodo: (store, todo) => {
+    store.commit('TODO_EDIT_TODO', todo)
+    store.commit('UPDATE_EDITING_TODO', null)
+    actions.persist()
+  },
   checkTodo: (store, todoId) => {
     store.commit('TODO_CHECK_TODO', todoId)
+    actions.persist()
+  },
+  deleteTodos: (store, todoId) => {
+    store.commit('TODO_DELETE_TODO', todoId)
+    actions.persist()
+  },
+  deleteAllCompleted: (store) => {
+    store.commit('TODO_DELETE_ALL_COMPLETED')
     actions.persist()
   }
 }
