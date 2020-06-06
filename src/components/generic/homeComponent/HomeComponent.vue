@@ -13,3 +13,11 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.backHome {
+  left: 1rem;
+  position: absolute;
+  top: 1rem;
+}
+</style>
