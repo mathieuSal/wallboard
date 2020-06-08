@@ -9006,6 +9006,11 @@ vue-loader@^13.3.0:
     vue-style-loader "^3.0.0"
     vue-template-es2015-compiler "^1.6.0"
 
+vue-micon@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/vue-micon/-/vue-micon-1.2.1.tgz#890b5972bbd2d387916398c086e77e9ab96e8bb0"
+  integrity sha512-NSLGnybg9rWbqHXkHMk4c30fTfVIbPv37GBb/WywzewfOS5iKZd9E8uG04d+5h24Jt6HtboGfS5OEQB5fEg53A==
+
 vue-router@^3.0.1:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.2.0.tgz#da35195ffe37fdf0bec9f5f8f72781d2a7718815"

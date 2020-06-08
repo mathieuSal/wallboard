@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="todoBody">
     <HomeComponent/>
     <section class="todoapp">
       <header class="header">
