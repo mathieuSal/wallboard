@@ -1,7 +1,7 @@
 <template>
   <div class="backHome">
-    <router-link to="/">
-      <p>home</p>
+    <router-link to="/" class='linkIcon'>
+      <vue-material-icon name="home" :size="28" :color="'#4d4d4d'"></vue-material-icon>
     </router-link>
     <div id="clock">
     </div>
@@ -9,12 +9,16 @@
 </template>
 
 <script>
+import VueMaterialIcon from 'vue-micon'
 
 const checkTime = (i) => i < 10 ? '0' + i : i
 
 export default {
   data () {
     return {}
+  },
+  components: {
+    VueMaterialIcon
   },
   mounted () {
     document.addEventListener('keydown', this.backHome)
@@ -59,5 +63,13 @@ export default {
   position: absolute;
   top: 1rem;
   width: 100px;
+}
+
+.linkIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  cursor: pointer;
 }
 </style>
