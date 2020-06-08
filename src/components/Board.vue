@@ -1,6 +1,6 @@
 <template>
     <div id="board">
-      <p>Widget list</p>
+      <HomeComponent/>
       <div class="widget-list-container">
         <div class="widget-list-content">
           <ul>
@@ -16,10 +16,15 @@
 </template>
 
 <script>
+import HomeComponent from './generic/homeComponent/HomeComponent'
+
 export default {
   name: 'Board',
   data () {
     return {}
+  },
+  components: {
+    HomeComponent
   }
 }
 </script>
@@ -29,6 +34,7 @@ export default {
   display: flex;
   width: 100%;
   justify-content: center;
+  margin: 10rem 0;
 }
 
 .widget-list-content {
