@@ -1,6 +1,7 @@
 <template>
     <div id="board">
       <HomeComponent/>
+      <p class="projectTitle">Wallboard</p>
       <div class="widget-list-container">
         <div class="widget-list-content">
           <ul>
@@ -48,11 +49,18 @@ export default {
 </script>
 
 <style scoped>
+.projectTitle {
+  color: #4d4d4d;
+  font: 90px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
 .widget-list-container {
   display: flex;
   width: 100%;
   justify-content: center;
-  margin: 10rem 0;
+  margin: 1rem 0;
 }
 
 .widget-list-content {
