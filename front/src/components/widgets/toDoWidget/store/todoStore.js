@@ -1,14 +1,10 @@
+import axios from 'axios'
 import {hashCode} from '../../../../utils/wallboardUtils'
-const storage = 'ms-wallboard-todoList'
 
 const state = {
   newTodo: '',
   editing: null,
-  todos: [{
-    id: 1,
-    name: 'tache de test',
-    completed: false
-  }]
+  todos: []
 }
 
 const getters = {
@@ -64,12 +60,12 @@ const mutations = {
 }
 
 const actions = {
-  persist (store) {
-    localStorage.setItem(storage, JSON.stringify(state.todos))
-  },
   fetchData: (store) => {
-    const historic = localStorage.getItem(storage)
-    store.commit('TODO_FETCH_LIST', historic !== null ? JSON.parse(historic) : [])
+    axios
+      .get('https://localhost:8443/todos')
+      .then(todos =>
+        store.commit('TODO_FETCH_LIST', todos.data['hydra:member'])
+      )
   },
   updateNewTodo: (store, e) => {
     store.commit('UPDATE_NEW_TODO', e.target.value)
@@ -77,7 +73,7 @@ const actions = {
   addTodo: (store, actionName) => {
     store.commit('TODO_ADD_TODO', actionName)
     store.commit('UPDATE_NEW_TODO', '')
-    actions.persist()
+    // post new todo here
   },
   editingTodo (store, todo) {
     store.commit('UPDATE_EDITING_TODO', todo)
@@ -87,20 +83,20 @@ const actions = {
   },
   editTodo: (store, todo) => {
     store.commit('TODO_EDIT_TODO', todo)
+    // put the edited todo here
     store.commit('UPDATE_EDITING_TODO', null)
-    actions.persist()
   },
   checkTodo: (store, todoId) => {
     store.commit('TODO_CHECK_TODO', todoId)
-    actions.persist()
+    // put the edited todo here
   },
   deleteTodos: (store, todoId) => {
     store.commit('TODO_DELETE_TODO', todoId)
-    actions.persist()
+    // delete todo here
   },
   deleteAllCompleted: (store) => {
     store.commit('TODO_DELETE_ALL_COMPLETED')
-    actions.persist()
+    // add an endpoint to delete all completed todos
   }
 }
 
