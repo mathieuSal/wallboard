@@ -4,7 +4,7 @@
       <p class="projectTitle">Wallboard</p>
       <div class="widget-list-container">
         <div class="widget-list-content">
-          <ul>
+          <ul class="widget-list">
             <li v-for="(widget, index) in widgets" :key="`widget-${index}`">
               <widget-presenter :link="widget.link" :keyShortcut="widget.shortcut">
                 <template v-slot:icon>
@@ -36,6 +36,12 @@ export default {
           icon: 'list_alt',
           name: 'Todo list',
           shortcut: 't'
+        },
+        {
+          link: './bookmarks',
+          icon: 'bookmarks',
+          name: 'Bookmarks',
+          shortcut: 'b'
         }
       ]
     }
@@ -68,7 +74,11 @@ export default {
   width: 60%;
 }
 
-ul {
+ul.widget-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
   list-style: none;
+  width: 100%;
 }
 </style>
