@@ -1,5 +1,4 @@
-import axios from 'axios'
-import {hashCode} from '../../../../utils/wallboardUtils'
+import {fetchTodosData, postNewTodo, updateTodo, deleteTodo} from '../api/todoApi'
 
 const state = {
   newTodo: '',
@@ -23,10 +22,6 @@ const mutations = {
   },
   UPDATE_NEW_TODO (state, value) {
     state.newTodo = value
-  },
-  TODO_ADD_TODO (state, name) {
-    const date = new Date()
-    state.todos = [...state.todos, {name, completed: false, id: hashCode(date.toString())}]
   },
   UPDATE_EDITING_TODO (state, todo) {
     state.editing = todo
@@ -60,20 +55,19 @@ const mutations = {
 }
 
 const actions = {
-  fetchData: (store) => {
-    axios
-      .get('https://localhost:8443/todos')
-      .then(todos =>
-        store.commit('TODO_FETCH_LIST', todos.data['hydra:member'])
-      )
-  },
+  fetchData: (store) => fetchTodosData().then(todos => store.commit('TODO_FETCH_LIST', todos)),
   updateNewTodo: (store, e) => {
     store.commit('UPDATE_NEW_TODO', e.target.value)
   },
   addTodo: (store, actionName) => {
-    store.commit('TODO_ADD_TODO', actionName)
-    store.commit('UPDATE_NEW_TODO', '')
-    // post new todo here
+    const todo = {
+      name: actionName,
+      completed: false
+    }
+    postNewTodo(todo).then(() => {
+      actions.fetchData(store)
+      store.commit('UPDATE_NEW_TODO', '')
+    })
   },
   editingTodo (store, todo) {
     store.commit('UPDATE_EDITING_TODO', todo)
@@ -82,17 +76,18 @@ const actions = {
     store.commit('UPDATE_EDITING_TODO', {...state.editing, name: e.target.value})
   },
   editTodo: (store, todo) => {
-    store.commit('TODO_EDIT_TODO', todo)
-    // put the edited todo here
-    store.commit('UPDATE_EDITING_TODO', null)
+    updateTodo(todo.id, todo)
+      .then(() => {
+        actions.fetchData(store)
+        store.commit('UPDATE_EDITING_TODO', null)
+      })
   },
-  checkTodo: (store, todoId) => {
-    store.commit('TODO_CHECK_TODO', todoId)
-    // put the edited todo here
+  checkTodo: (store, todo) => {
+    updateTodo(todo.id, {...todo, completed: !todo.completed})
+      .then(() => actions.fetchData(store))
   },
   deleteTodos: (store, todoId) => {
-    store.commit('TODO_DELETE_TODO', todoId)
-    // delete todo here
+    deleteTodo(todoId).then(() => actions.fetchData(store))
   },
   deleteAllCompleted: (store) => {
     store.commit('TODO_DELETE_ALL_COMPLETED')

@@ -16,7 +16,7 @@
             v-for="todo in filteredTodos" :key="todo.id"
           >
             <div class="view">
-              <input type="checkbox" class="toggle" :checked="todo.completed" @click="checkTodo(todo.id)">
+              <input type="checkbox" class="toggle" :checked="todo.completed" @click="checkTodo(todo)">
               <label @dblclick="editingTodo(todo)">{{todo.name}}</label>
               <button class="destroy" @click.prevent="deleteTodos(todo.id)"></button>
             </div>
