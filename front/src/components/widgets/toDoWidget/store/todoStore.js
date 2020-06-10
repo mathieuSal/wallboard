@@ -90,8 +90,15 @@ const actions = {
     deleteTodo(todoId).then(() => actions.fetchData(store))
   },
   deleteAllCompleted: (store) => {
-    store.commit('TODO_DELETE_ALL_COMPLETED')
-    // add an endpoint to delete all completed todos
+    const promises = []
+    getters.completedTodos(state).map(todo => {
+      promises.push(deleteTodo(todo.id))
+    })
+    Promise
+      .all(promises)
+      .then(() => {
+        actions.fetchData(store)
+      })
   }
 }
 
