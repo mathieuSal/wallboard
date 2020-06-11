@@ -1,6 +1,6 @@
 <template>
   <div class="todoBody">
-    <HomeComponent/>
+    <home-component/>
     <section class="todoapp">
       <header class="header">
         <h1>todo</h1>
