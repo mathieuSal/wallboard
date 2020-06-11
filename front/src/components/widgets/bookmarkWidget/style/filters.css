@@ -1,0 +1,41 @@
+.bookmarkFiltersContainer {
+  align-items: flex-start;
+  border: 1px solid #dedede;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+  color: #4d4d4d;
+  display: flex;
+  justify-content: flex-start;
+  left: 1rem;
+  padding: 10px 5px;
+  position: absolute;
+  top: 9rem;
+  width: 200px;
+}
+
+.bookmarkFiltersContent {
+  width: 100%;
+}
+
+.bookmarkCategoryFilterContent header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.bookmarkCategoryFilterContent header .actionIcon{
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+}
+
+.addCategoryForm {
+  border: 1px solid #dedede;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+  color: #4d4d4d;
+  left: calc(200px + 1rem);
+  padding: 10px 5px;
+  position: absolute;
+  top: 0;
+}
