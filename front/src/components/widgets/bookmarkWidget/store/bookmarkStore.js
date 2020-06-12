@@ -41,9 +41,10 @@ const actions = {
     store.commit('TOGGLE_CATEGORY_FORM', category)
   },
   submitNewCategory: (store) => {
-    postNewBookmarkCategory(state.category_form).then(() =>
+    postNewBookmarkCategory(state.category_form).then(() => {
       actions.fetchCategories(store)
-    )
+      actions.closeCategoryForm(store)
+    })
   }
 }
 
