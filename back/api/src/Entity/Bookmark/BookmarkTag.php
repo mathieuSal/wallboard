@@ -4,7 +4,6 @@ namespace App\Entity\Bookmark;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\ManyToMany;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -32,7 +31,7 @@ class BookmarkTag
     private $name;
 
     /**
-     * @ManyToMany(targetEntity="Bookmark", mappedBy="tags")
+     * @ORM\ManyToMany(targetEntity="Bookmark", mappedBy="tags")
      */
     private $bookmarks;
 

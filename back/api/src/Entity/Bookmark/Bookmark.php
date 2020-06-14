@@ -3,11 +3,8 @@
 namespace App\Entity\Bookmark;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\ManyToOne;
-use Doctrine\ORM\Mapping\ManyToMany;
-use Doctrine\ORM\Mapping\JoinColumn;
-use Doctrine\ORM\Mapping\JoinTable;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -58,14 +55,16 @@ class Bookmark
     private $isFavorite;
 
     /**
-     * @ManyToOne(targetEntity="BookmarkCategory")
-     * @JoinColumn(name="bookmark_category_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="BookmarkCategory")
+     * @ORM\JoinColumn(name="bookmark_category_id", referencedColumnName="id")
+     * @ApiSubresource
      */
     private $category;
 
     /**
-     * @ManyToMany(targetEntity="BookmarkTag", inversedBy="bookmarks")
-     * @JoinTable(name="bookmarks_bookmark_tags")
+     * @ORM\ManyToMany(targetEntity="BookmarkTag", inversedBy="bookmarks")
+     * @ORM\JoinTable(name="bookmarks_bookmark_tags")
+     * @ApiSubresource
      */
     private $tags;
 
