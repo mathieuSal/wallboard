@@ -11,10 +11,8 @@
           ></vue-material-icon>
         </span>
       </header>
-      <div>
-        <ul>
-          <li v-for="category in categories" :key="category.id">{{ category.name }}</li>
-        </ul>
+      <div class="bookmarkCategoryFilterContentBody">
+        <category v-for="category in categories" :key="category.id" :category="category"/>
       </div>
     </div>
   </div>
@@ -22,11 +20,13 @@
 
 <script>
 import VueMaterialIcon from 'vue-micon'
+import Category from './category'
 
 export default {
   name: 'CategoryFilter',
   components: {
-    VueMaterialIcon
+    VueMaterialIcon,
+    Category
   },
   props: ['categories'],
   methods: {
