@@ -5,9 +5,9 @@
         <span>
           Categories
         </span>
-        <span @click="openCategoryForm" class="actionIcon">
+        <span @click="toggleCategoryManager" class="actionIcon">
           <vue-material-icon
-            name="add" :size="16" :color="'#4d4d4d'"
+            name="build" :size="16" :color="'#4d4d4d'"
           ></vue-material-icon>
         </span>
       </header>
@@ -30,8 +30,8 @@ export default {
   },
   props: ['categories'],
   methods: {
-    openCategoryForm () {
-      this.$emit('openCategoryForm')
+    toggleCategoryManager () {
+      this.$emit('toggleCategoryManager')
     }
   }
 }
