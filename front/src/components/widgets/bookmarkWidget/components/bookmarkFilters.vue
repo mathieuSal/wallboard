@@ -6,13 +6,12 @@
         @toggleCategoryManager="toggleCategoryManager"
       />
     </div>
-    <div class="categoryManagerContainer" v-if="isCategoryManagerOpen">
-      <category-manager
-        :categories="categories"
-        @submitNewCategory="submitNewCategory"
-        @submitEditCategory="submitEditCategory"
-      />
-    </div>
+    <category-manager
+      v-if="isCategoryManagerOpen"
+      :categories="categories"
+      @submitNewCategory="submitNewCategory"
+      @submitEditCategory="submitEditCategory"
+    />
   </div>
 </template>
 
