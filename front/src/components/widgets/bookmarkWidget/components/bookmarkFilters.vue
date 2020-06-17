@@ -3,14 +3,14 @@
     <div class="bookmarkFiltersContent">
       <category-filter
         :categories="categories"
-        @openCategoryForm="openCategoryForm"
+        @toggleCategoryManager="toggleCategoryManager"
       />
     </div>
-    <div class="addCategoryForm" v-if="categoryForm">
-      <category-form
-        :form="categoryForm"
-        @editCategoryForm="editCategoryForm"
+    <div class="categoryManagerContainer" v-if="isCategoryManagerOpen">
+      <category-manager
+        :categories="categories"
         @submitNewCategory="submitNewCategory"
+        @submitEditCategory="submitEditCategory"
       />
     </div>
   </div>
@@ -18,27 +18,31 @@
 
 <script>
 import CategoryFilter from './categoryFilter'
-import CategoryForm from './categoryForm'
+import CategoryManager from './categoryManager'
 
 export default {
   name: 'BookmarkFilters',
+  data () {
+    return {
+      isCategoryManagerOpen: false
+    }
+  },
   components: {
     CategoryFilter,
-    CategoryForm
+    CategoryManager
   },
   props: [
-    'categories',
-    'categoryForm'
+    'categories'
   ],
   methods: {
-    openCategoryForm () {
-      this.$emit('openCategoryForm')
+    toggleCategoryManager () {
+      this.isCategoryManagerOpen = !this.isCategoryManagerOpen
     },
-    editCategoryForm (payload) {
-      this.$emit('editCategoryForm', payload)
+    submitNewCategory (newCategory) {
+      this.$emit('submitNewCategory', newCategory)
     },
-    submitNewCategory () {
-      this.$emit('submitNewCategory')
+    submitEditCategory (category) {
+      this.$emit('submitEditCategory', category)
     }
   }
 }

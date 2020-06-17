@@ -4,6 +4,10 @@
  */
 export const hashCode = s => s.split('').reduce((a, b) => { a = ((a << 5) - a) + b.charCodeAt(0); return a & a }, 0)
 
+/**
+ * convert an hexadecimal color code to a rgb one
+ * @param {string} hex
+ */
 export const hex2rgb = hex => {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
   return result ? {

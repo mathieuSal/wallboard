@@ -3,10 +3,8 @@
     <home-component/>
     <bookmark-filters
       :categories="categories"
-      :categoryForm="category_form"
-      @openCategoryForm="openCategoryForm"
-      @editCategoryForm="editCategoryForm"
       @submitNewCategory="submitNewCategory"
+      @submitEditCategory="submitEditCategory"
     />
   </div>
 </template>
@@ -29,17 +27,14 @@ export default {
   },
   computed: {
     ...Vuex.mapGetters([
-      'categories',
-      'category_form'
+      'categories'
     ])
   },
   methods: {
     ...Vuex.mapActions([
       'fetchCategories',
-      'openCategoryForm',
-      'closeCategoryForm',
-      'editCategoryForm',
-      'submitNewCategory'
+      'submitNewCategory',
+      'submitEditCategory'
     ])
   }
 }
