@@ -1,7 +1,8 @@
 import {
   fetchBookmarkCategories,
   postNewBookmarkCategory,
-  putEditBookmarkCategory
+  putEditBookmarkCategory,
+  deleteBookmarkCategory
 } from '../api/bookmarkApi'
 
 const state = {
@@ -28,6 +29,11 @@ const actions = {
   },
   submitEditCategory: (store, category) => {
     putEditBookmarkCategory(category).then(() => {
+      actions.fetchCategories(store)
+    })
+  },
+  removeCategory: (store, categoryId) => {
+    deleteBookmarkCategory(categoryId).then(() => {
       actions.fetchCategories(store)
     })
   }

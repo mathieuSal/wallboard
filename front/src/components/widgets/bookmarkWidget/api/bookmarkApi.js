@@ -13,4 +13,8 @@ const putEditBookmarkCategory = (category) => {
   return axios.put(`${ENV.backUrl}/bookmark_categories/${category.id}`, category).then(category => category)
 }
 
-export {fetchBookmarkCategories, postNewBookmarkCategory, putEditBookmarkCategory}
+const deleteBookmarkCategory = (id) => {
+  return axios.delete(`${ENV.backUrl}/bookmark_categories/${id}`)
+}
+
+export {fetchBookmarkCategories, postNewBookmarkCategory, putEditBookmarkCategory, deleteBookmarkCategory}

@@ -68,6 +68,11 @@
         data-attribute="color"
       />
       <button @click="submitCategoryForm">Validate</button>
+      <button @click="removeCategory" v-if="categoryForm.id">
+        <vue-material-icon
+          name="delete" :size="12" :color="'#cecece'"
+        ></vue-material-icon>
+      </button>
     </div>
   </div>
 </template>
@@ -96,6 +101,10 @@ export default {
     },
     editCategory (category) {
       this.categoryForm = category
+    },
+    removeCategory () {
+      this.$emit('removeCategory', this.categoryForm.id)
+      this.categoryForm = null
     },
     editCategoryFormInput (e) {
       this.categoryForm = {

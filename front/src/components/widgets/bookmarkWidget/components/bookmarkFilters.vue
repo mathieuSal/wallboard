@@ -11,6 +11,7 @@
       :categories="categories"
       @submitNewCategory="submitNewCategory"
       @submitEditCategory="submitEditCategory"
+      @removeCategory="removeCategory"
     />
   </div>
 </template>
@@ -42,6 +43,9 @@ export default {
     },
     submitEditCategory (category) {
       this.$emit('submitEditCategory', category)
+    },
+    removeCategory (categoryId) {
+      this.$emit('removeCategory', categoryId)
     }
   }
 }

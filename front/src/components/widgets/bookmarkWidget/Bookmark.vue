@@ -5,6 +5,7 @@
       :categories="categories"
       @submitNewCategory="submitNewCategory"
       @submitEditCategory="submitEditCategory"
+      @removeCategory="removeCategory"
     />
   </div>
 </template>
@@ -34,7 +35,8 @@ export default {
     ...Vuex.mapActions([
       'fetchCategories',
       'submitNewCategory',
-      'submitEditCategory'
+      'submitEditCategory',
+      'removeCategory'
     ])
   }
 }
