@@ -50,7 +50,7 @@ const actions = {
   submitNewCategory: (store, newCategory) => {
     postNewBookmarkCategory(newCategory).then(category => {
       actions.refreshCategories(store)
-      store.commit('SET_NEW_CATEGORY_AS_ACTIVE', category.id)
+      store.commit('SET_NEW_CATEGORY_AS_ACTIVE', category.data.id)
     })
   },
   submitEditCategory: (store, category) => {
