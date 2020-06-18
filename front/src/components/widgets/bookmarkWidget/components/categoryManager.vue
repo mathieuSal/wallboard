@@ -51,7 +51,14 @@
         @input="editCategoryFormInput"
         data-attribute="name"
       />
-      <label for="categoryIcon">Icon:</label>
+      <label for="categoryIcon">
+        <span>Icon:</span>
+        <a href="https://material.io/resources/icons/?icon=article&style=baseline" target="_blank" rel="noopener noreferrer">
+          <vue-material-icon
+            name="link" :size="16" :color="'#4d4d4d'"
+          ></vue-material-icon>
+        </a>
+      </label>
       <input
         type="text" name="categoryIcon"
         id="categoryIcon" class="controls"
@@ -67,12 +74,14 @@
         @change="editCategoryFormInput"
         data-attribute="color"
       />
-      <button @click="submitCategoryForm">Validate</button>
-      <button @click="removeCategory" v-if="categoryForm.id">
-        <vue-material-icon
-          name="delete" :size="12" :color="'#cecece'"
-        ></vue-material-icon>
-      </button>
+      <div class="categoryManager-Form-footer">
+        <button @click="submitCategoryForm">Validate</button>
+        <button @click="removeCategory" v-if="categoryForm.id" class="deleteButton">
+          <vue-material-icon
+            name="delete" :size="12" :color="'#cc0000'"
+          ></vue-material-icon>
+        </button>
+      </div>
     </div>
   </div>
 </template>

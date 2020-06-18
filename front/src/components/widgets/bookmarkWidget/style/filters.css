@@ -72,6 +72,26 @@
   top: 0;
 }
 
+.categoryManager-Form label, .categoryManager-Form label a {
+  align-items: center;
+  display: flex;
+}
+
+.categoryManager-Form input[type=color] {
+  width: 96%;
+}
+
+.categoryManager-Form-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.categoryManager-Form-footer .deleteButton {
+  border: none;
+  background-color: inherit;
+}
+
 .CategoryManager-Table .center {
   align-items: center;
   display: flex;
