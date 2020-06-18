@@ -12,7 +12,11 @@
         </span>
       </header>
       <div class="bookmarkCategoryFilterContentBody">
-        <category v-for="category in categories" :key="category.id" :category="category"/>
+        <category
+          v-for="category in categories" :key="category.id"
+          :category="category"
+          @toggleCategory="toggleCategory"
+        />
       </div>
     </div>
   </div>
@@ -32,6 +36,9 @@ export default {
   methods: {
     toggleCategoryManager () {
       this.$emit('toggleCategoryManager')
+    },
+    toggleCategory (id) {
+      this.$emit('toggleCategory', id)
     }
   }
 }

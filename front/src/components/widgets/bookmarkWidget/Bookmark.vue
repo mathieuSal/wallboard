@@ -3,6 +3,7 @@
     <home-component/>
     <bookmark-filters
       :categories="categories"
+      @toggleCategory="toggleCategory"
       @submitNewCategory="submitNewCategory"
       @submitEditCategory="submitEditCategory"
       @removeCategory="removeCategory"
@@ -34,6 +35,7 @@ export default {
   methods: {
     ...Vuex.mapActions([
       'fetchCategories',
+      'toggleCategory',
       'submitNewCategory',
       'submitEditCategory',
       'removeCategory'
