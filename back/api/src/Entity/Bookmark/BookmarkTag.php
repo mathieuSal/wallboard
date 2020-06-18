@@ -31,15 +31,6 @@ class BookmarkTag
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Bookmark", mappedBy="tags")
-     */
-    private $bookmarks;
-
-    public function __construct() {
-      $this->bookmarks = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
      * Get the entity Id
      *
      * @return  int
@@ -69,26 +60,6 @@ class BookmarkTag
     public function setName(string $name)
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of bookmarks
-     */ 
-    public function getBookmarks()
-    {
-        return $this->bookmarks;
-    }
-
-    /**
-     * Set the value of bookmarks
-     *
-     * @return  self
-     */ 
-    public function setBookmarks($bookmarks)
-    {
-        $this->bookmarks = $bookmarks;
 
         return $this;
     }
