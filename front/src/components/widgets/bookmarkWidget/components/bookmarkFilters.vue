@@ -4,6 +4,7 @@
       <category-filter
         :categories="categories"
         @toggleCategoryManager="toggleCategoryManager"
+        @toggleCategory="toggleCategory"
       />
     </div>
     <category-manager
@@ -37,6 +38,9 @@ export default {
   methods: {
     toggleCategoryManager () {
       this.isCategoryManagerOpen = !this.isCategoryManagerOpen
+    },
+    toggleCategory (id) {
+      this.$emit('toggleCategory', id)
     },
     submitNewCategory (newCategory) {
       this.$emit('submitNewCategory', newCategory)
