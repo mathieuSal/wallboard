@@ -62,8 +62,11 @@ class Bookmark
     private $category;
 
     /**
-     * @ORM\ManyToMany(targetEntity="BookmarkTag", inversedBy="bookmarks")
-     * @ORM\JoinTable(name="bookmarks_bookmark_tags")
+     * @ORM\ManyToMany(targetEntity="BookmarkTag")
+     * @ORM\JoinTable(name="bookmarks_bookmark_tags",
+     *                joinColumns={@ORM\JoinColumn(name="bookmark_id", referencedColumnName="id")},
+     *                inverseJoinColumns={@ORM\JoinColumn(name="bookmark_tag_id", referencedColumnName="id")}
+     *               )
      * @ApiSubresource
      */
     private $tags;
